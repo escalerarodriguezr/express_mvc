@@ -1,0 +1,34 @@
+version: '3.6'
+
+services:
+  mvc-app:
+    container_name: mvc-app
+    build:
+      context: ./etc/node
+      args:
+        UID: $U_ID
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./:/app
+    user: "appuser"
+    working_dir: /app
+    command: tail -f /dev/null
+    networks:
+      - mvc
+
+#  nest-mongo:
+#    container_name: nest-mongo
+#    image: mongo:6.0
+#    restart: always
+#    environment:
+#      MONGO_INITDB_ROOT_USERNAME: root
+#      MONGO_INITDB_ROOT_PASSWORD: password
+#      MONGO_INITDB_DATABASE: people
+#    ports:
+#      - '27077:27017'
+#    networks:
+#      - codenip-nest
+
+networks:
+  mvc:
